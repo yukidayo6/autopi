@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPi Sales Deck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green: #06C755;
+            --green-dark: #04a344;
+            --green-pale: #e8faf0;
+            --black: #1a1a1a;
+            --gray: #666;
+            --gray-light: #f0f0f0;
+            --red: #e74c3c;
+            --dark-bg: #0a1628;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #000;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            position: relative;
+        }
+
+        .slide-memo {
+            position: absolute;
+            bottom: 20px;
+            left: 60px;
+            right: 60px;
+            font-size: 13px;
+            color: var(--gray);
+            opacity: 0.6;
+            line-height: 1.6;
+            font-style: italic;
+            max-width: 80%;
+        }
+
+        .indicator {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: clamp(14px, 2vw, 18px);
+            color: white;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        /* SLIDE 01: Title */
+        .slide-01 {
+            background: linear-gradient(135deg, var(--dark-bg), #0a3020);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-01 .slide-content {
+            text-align: center;
+        }
+
+        .logo {
+            font-family: Poppins, sans-serif;
+            font-weight: 800;
+            font-size: clamp(32px, 6vw, 56px);
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+
+        .logo-auto {
+            color: white;
+        }
+
+        .logo-pi {
+            color: var(--green);
+        }
+
+        .slide-title {
+            color: white;
+            font-size: clamp(18px, 2.5vw, 24px);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .divider-green {
+            width: 60px;
+            height: 3px;
+            background: var(--green);
+            margin: 25px auto;
+        }
+
+        .slide-subtitle {
+            color: white;
+            font-size: clamp(14px, 1.8vw, 18px);
+            margin-top: 25px;
+            font-weight: 600;
+        }
+
+        .slide-author {
+            color: white;
+            font-size: clamp(14px, 1.8vw, 18px);
+            margin-top: 10px;
+        }
+
+        .slide-date {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: clamp(12px, 1.5vw, 14px);
+            margin-top: 15px;
+        }
+
+        /* SLIDE 02: Agenda */
+        .slide-02 {
+            background: white;
+        }
+
+        .slide-02 h2 {
+            color: var(--black);
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .agenda-items {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .agenda-item {
+            display: flex;
+            gap: 20px;
+            font-size: clamp(16px, 2.2vw, 20px);
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        .agenda-number {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: var(--green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 700;
+        }
+
+        .agenda-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .agenda-text-main {
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .agenda-text-sub {
+            font-size: 0.8em;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .agenda-note {
+            color: var(--gray);
+            font-size: clamp(13px, 1.5vw, 16px);
+            font-weight: 400;
+            margin-top: 20px;
+            max-width: 700px;
+        }
+
+        /* SLIDE 03: Hearing */
+        .slide-03 {
+            background: white;
+        }
+
+        .slide-03 h2 {
+            color: var(--black);
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .hearing-items {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+
+        .hearing-item {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--black);
+            font-weight: 600;
+            line-height: 1.8;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .hearing-icon {
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .hearing-card {
+            background: var(--green-pale);
+            border-left: 4px solid var(--green);
+            padding: 20px;
+            border-radius: 8px;
+            color: var(--green-dark);
+            font-size: clamp(13px, 1.5vw, 15px);
+            font-weight: 600;
+            margin-top: 30px;
+            max-width: 700px;
+        }
+
+        /* SLIDE 04: Diagnosis */
+        .slide-04 {
+            background: #f5f5f5;
+        }
+
+        .slide-04 h2 {
+            color: var(--black);
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 40px;
+            font-weight: 700;
+            width: 100%;
+            text-align: center;
+        }
+
+        .diagnosis-container {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .diagnosis-column {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: clamp(13px, 1.5vw, 15px);
+            color: var(--black);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-input {
+            padding: 12px 15px;
+            border: 2px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: clamp(13px, 1.5vw, 16px);
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--green);
+        }
+
+        .calc-button {
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .calc-button:hover {
+            background: var(--green-dark);
+        }
+
+        .result-empty {
+            color: var(--gray);
+            font-size: clamp(13px, 1.5vw, 15px);
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .result-item {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .result-label {
+            color: var(--gray);
+            font-size: clamp(12px, 1.4vw, 14px);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .result-value {
+            font-size: clamp(24px, 3.5vw, 36px);
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        .result-recovery {
+            color: var(--green);
+        }
+
+        .result-review {
+            background: var(--gray-light);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .result-review-status {
+            font-size: clamp(16px, 2vw, 18px);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .result-review-msg {
+            font-size: clamp(13px, 1.5vw, 15px);
+            color: var(--gray);
+        }
+
+        .diagnosis-highlight {
+            background: var(--green-pale);
+            color: var(--green-dark);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 18px);
+            font-weight: 700;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .diagnosis-highlight.visible {
+            display: block;
+        }
+
+        /* SLIDE 05: Solutions */
+        .slide-05 {
+            background: white;
+        }
+
+        .slide-05 h2 {
+            color: var(--black);
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 40px;
+        }
+
+        .solution-card {
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+
+        .solution-card:hover {
+            border-color: var(--green);
+        }
+
+        .solution-number {
+            width: 50px;
+            height: 50px;
+            background: var(--green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 24px;
+            margin: 0 auto 20px;
+        }
+
+        .solution-title {
+            font-size: clamp(16px, 2vw, 18px);
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 10px;
+        }
+
+        .solution-desc {
+            font-size: clamp(12px, 1.4vw, 14px);
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .solution-detail {
+            font-size: clamp(11px, 1.3vw, 13px);
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .solutions-note {
+            background: var(--green-pale);
+            border: 2px solid var(--green);
+            color: var(--green-dark);
+            padding: 20px;
+            border-radius: 8px;
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 600;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        /* SLIDE 06: System Diagram */
+        .slide-06 {
+            background: #f8f8f8;
+        }
+
+        .slide-06 h2 {
+            color: var(--black);
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .flow-diagram {
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .flow-step {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flow-box {
+            background: white;
+            border: 2px solid var(--black);
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-size: clamp(12px, 1.5vw, 14px);
+            font-weight: 600;
+            color: var(--black);
+            min-width: 200px;
+        }
+
+        .flow-arrow {
+            font-size: clamp(20px, 3vw, 24px);
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .flow-note {
+            font-size: clamp(11px, 1.3vw, 12px);
+            color: var(--gray);
+            margin-top: 8px;
+        }
+
+        .flow-report {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--gray);
+        }
+
+        .flow-tools-card {
+            background: white;
+            border: 3px solid var(--green);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 40px;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .flow-tools-title {
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 15px;
+        }
+
+        .flow-tools-list {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--gray);
+        }
+
+        .flow-tools-cost {
+            font-size: clamp(16px, 2.2vw, 20px);
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        /* SLIDE 07: Message Sample */
+        .slide-07 {
+            background: white;
+        }
+
+        .slide-07 h2 {
+            color: var(--black);
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .message-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .message-card {
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .message-header {
+            background: var(--green);
+            color: white;
+            padding: 15px;
+            font-size: clamp(12px, 1.5vw, 13px);
+            font-weight: 700;
+        }
+
+        .message-body {
+            padding: 20px;
+            background: #f9f9f9;
+            font-size: clamp(13px, 1.6vw, 15px);
+            color: var(--black);
+            line-height: 1.8;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Noto Sans JP', sans-serif;
+            white-space: pre-wrap;
+        }
+
+        .message-note {
+            color: var(--gray);
+            font-size: clamp(12px, 1.4vw, 13px);
+            margin-top: 25px;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        /* SLIDE 08: Pricing */
+        .slide-08 {
+            background: white;
+        }
+
+        .slide-08 h2 {
+            color: var(--black);
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 40px;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--green);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: clamp(11px, 1.3vw, 13px);
+            font-weight: 700;
+        }
+
+        .pricing-plan {
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 700;
+            color: var(--gray);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-item {
+            margin-bottom: 15px;
+            font-size: clamp(13px, 1.6vw, 15px);
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        .pricing-item .label {
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .pricing-note {
+            font-size: clamp(11px, 1.3vw, 12px);
+            color: var(--gray);
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .cost-benefit {
+            background: var(--green-pale);
+            border: 2px solid var(--green);
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 1000px;
+            color: var(--green-dark);
+            font-size: clamp(13px, 1.6vw, 15px);
+            line-height: 1.8;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .cost-benefit.empty {
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        /* SLIDE 09: Q&A */
+        .slide-09 {
+            background: #f8f8f8;
+        }
+
+        .slide-09 h2 {
+            color: var(--black);
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .qa-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .qa-item {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .qa-question {
+            color: var(--green);
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .qa-answer {
+            color: var(--black);
+            font-size: clamp(12px, 1.5vw, 14px);
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* SLIDE 10: Application Flow */
+        .slide-10 {
+            background: white;
+        }
+
+        .slide-10 h2 {
+            color: var(--black);
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .timeline-number {
+            width: 50px;
+            height: 50px;
+            background: var(--green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: clamp(16px, 2vw, 20px);
+        }
+
+        .timeline-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .timeline-title {
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 5px;
+        }
+
+        .timeline-desc {
+            font-size: clamp(13px, 1.5vw, 15px);
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .timeline-note {
+            background: var(--green-pale);
+            border: 2px solid var(--green);
+            color: var(--green-dark);
+            padding: 20px;
+            border-radius: 8px;
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 600;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        /* SLIDE 11: Closing */
+        .slide-11 {
+            background: linear-gradient(135deg, var(--dark-bg), #0a3020);
+            color: white;
+            justify-content: center;
+        }
+
+        .slide-11 .slide-content {
+            text-align: center;
+        }
+
+        .slide-11 h2 {
+            color: white;
+            font-size: clamp(24px, 3.5vw, 32px);
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .closing-highlight {
+            background: rgba(6, 199, 85, 0.1);
+            border: 2px solid var(--green);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        .highlight-item {
+            font-size: clamp(16px, 2vw, 18px);
+            font-weight: 700;
+            margin: 12px 0;
+        }
+
+        .closing-urgent {
+            background: var(--red);
+            color: white;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: clamp(12px, 1.5vw, 14px);
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .closing-cta {
+            color: white;
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .qr-placeholder {
+            width: 120px;
+            height: 120px;
+            border: 2px solid white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: white;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .closing-thanks {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(12px, 1.5vw, 14px);
+            margin-top: 30px;
+        }
+
+        /* SLIDE 12: END */
+        .slide-12 {
+            background: linear-gradient(135deg, var(--dark-bg), #0a3020);
+            color: white;
+            justify-content: center;
+        }
+
+        .slide-12 .slide-content {
+            text-align: center;
+        }
+
+        .end-thanks {
+            color: white;
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .end-contact {
+            color: white;
+            font-size: clamp(14px, 1.8vw, 16px);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .end-contact-link {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .end-message {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(12px, 1.5vw, 14px);
+            margin-top: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .message-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .qa-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .diagnosis-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- SLIDE 01: Title -->
+        <div class="slide slide-01 active">
+            <div class="slide-content">
+                <div class="logo">
+                    <span class="logo-auto">Auto</span><span class="logo-pi">Pi</span>
+                </div>
+                <div class="slide-title">美容サロン向け LINE自動化サービス</div>
+                <div class="divider-green"></div>
+                <div class="slide-subtitle">本日はよろしくお願いします。</div>
+                <div class="slide-author">松尾侑樹</div>
+                <div class="slide-date" id="date-display"></div>
+            </div>
+            <div class="slide-memo">「画面共有を開始してから始めましょう」</div>
+        </div>
+
+        <!-- SLIDE 02: Agenda -->
+        <div class="slide slide-02">
+            <div class="slide-content">
+                <h2>本日の流れ（約15分）</h2>
+                <div class="agenda-items">
+                    <div class="agenda-item">
+                        <div class="agenda-number">①</div>
+                        <div class="agenda-text">
+                            <div class="agenda-text-main">5分 現状確認</div>
+                            <div class="agenda-text-sub">キャンセル・口コミの状況をお聞きします</div>
+                        </div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-number">②</div>
+                        <div class="agenda-text">
+                            <div class="agenda-text-main">3分 損失額の試算</div>
+                            <div class="agenda-text-sub">一緒に計算します</div>
+                        </div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-number">③</div>
+                        <div class="agenda-text">
+                            <div class="agenda-text-main">5分 AutoPiの説明</div>
+                            <div class="agenda-text-sub">仕組み・料金</div>
+                        </div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-number">④</div>
+                        <div class="agenda-text">
+                            <div class="agenda-text-main">2分 ご質問・次のステップ確認</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="agenda-note">まず現状をしっかり把握させてください。売り込みはしません。</div>
+            </div>
+            <div class="slide-memo">「「今日は一方的に説明するのではなく、まず◯◯さんのサロンの状況を教えていただきながら進めたいと思います」」</div>
+        </div>
+
+        <!-- SLIDE 03: Hearing -->
+        <div class="slide slide-03">
+            <div class="slide-content">
+                <h2>まず現状を教えてください</h2>
+                <div class="hearing-items">
+                    <div class="hearing-item">
+                        <span class="hearing-icon">📅</span>
+                        <span>月に何件くらいキャンセルがありますか？</span>
+                    </div>
+                    <div class="hearing-item">
+                        <span class="hearing-icon">💴</span>
+                        <span>1件あたりの平均的な客単価は？</span>
+                    </div>
+                    <div class="hearing-item">
+                        <span class="hearing-icon">⭐</span>
+                        <span>Googleマップの口コミは今何件くらいですか？</span>
+                    </div>
+                    <div class="hearing-item">
+                        <span class="hearing-icon">👥</span>
+                        <span>月間の来店客数はだいたい何人くらいですか？（任意）</span>
+                    </div>
+                </div>
+                <div class="hearing-card">正確でなくてOKです。おおよそで大丈夫です。</div>
+            </div>
+            <div class="slide-memo">「「数値は目安でOKです。計算してみると意外な結果になることが多いので一緒に確認しましょう」」</div>
+        </div>
+
+        <!-- SLIDE 04: Diagnosis -->
+        <div class="slide slide-04">
+            <h2>損失額を一緒に計算してみましょう</h2>
+            <div class="diagnosis-container">
+                <div class="diagnosis-column">
+                    <div class="form-group">
+                        <label class="form-label">月間キャンセル件数</label>
+                        <input type="number" id="cancel-count" class="form-input" placeholder="例: 5" min="0">
+                        <span class="form-label" style="margin-top: 4px;">件</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">平均客単価</label>
+                        <input type="number" id="avg-price" class="form-input" placeholder="例: 10000" min="0">
+                        <span class="form-label" style="margin-top: 4px;">円</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Googleマップ口コミ数</label>
+                        <input type="number" id="review-count" class="form-input" placeholder="例: 25" min="0">
+                        <span class="form-label" style="margin-top: 4px;">件</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">月間来店客数（任意）</label>
+                        <input type="number" id="visit-count" class="form-input" placeholder="例: 100" min="0">
+                        <span class="form-label" style="margin-top: 4px;">人</span>
+                    </div>
+                    <button class="calc-button" onclick="calculateDiagnosis()">計算する</button>
+                </div>
+
+                <div class="diagnosis-column">
+                    <div id="result-display">
+                        <div class="result-empty">入力するとここに表示されます</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-memo">「「さっき教えていただいた数値を入力してみます。合ってますか？」確認しながら入力する」</div>
+        </div>
+
+        <!-- SLIDE 05: Solutions -->
+        <div class="slide slide-05">
+            <div class="slide-content">
+                <h2>AutoPiが解決する3つのこと</h2>
+                <div class="solutions-grid">
+                    <div class="solution-card">
+                        <div class="solution-number">①</div>
+                        <div class="solution-title">予約リマインド自動送信</div>
+                        <div class="solution-desc">キャンセルを仕組みで防ぐ</div>
+                        <div class="solution-detail">予約前日に自動でLINEリマインド送信</div>
+                    </div>
+                    <div class="solution-card">
+                        <div class="solution-number">②</div>
+                        <div class="solution-title">口コミ依頼自動送信</div>
+                        <div class="solution-desc">新規客を仕組みで増やす</div>
+                        <div class="solution-detail">来店後に自動でGoogleマップ口コミ依頼</div>
+                    </div>
+                    <div class="solution-card">
+                        <div class="solution-number">③</div>
+                        <div class="solution-title">月次売上レポート</div>
+                        <div class="solution-desc">効果を数字で確認</div>
+                        <div class="solution-detail">月1回改善額を試算してレポートで共有</div>
+                    </div>
+                </div>
+                <div class="solutions-note">設定後は、スプレッドシートに入力するだけ。あとはすべて自動です。</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 06: System Diagram -->
+        <div class="slide slide-06">
+            <div class="slide-content">
+                <h2>仕組みはシンプルです</h2>
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="flow-box">スプレッドシートに予約情報を入力</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">GASが前日・当日に自動実行</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">顧客のLINEへ自動メッセージ</div>
+                    </div>
+                    <div style="font-size: clamp(11px, 1.3vw, 12px); color: var(--gray); margin-top: -10px;">
+                        （名前・日付・時刻・メニュー）　　　　（設定後オーナー操作不要）
+                    </div>
+                    <div class="flow-report" style="margin-top: 40px;">
+                        <div style="color: var(--gray);">↓ 月1回</div>
+                    </div>
+                    <div class="flow-box" style="margin-top: 20px;">月次レポート: キャンセル数・口コミ推移の可視化</div>
+                </div>
+
+                <div class="flow-tools-card">
+                    <div class="flow-tools-title">使用ツールはすべて無料</div>
+                    <div class="flow-tools-list">
+                        LINE公式アカウント + Googleスプレッドシート + GAS
+                    </div>
+                    <div class="flow-tools-cost">→ 運用コスト ¥0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 07: Message Sample -->
+        <div class="slide slide-07">
+            <div class="slide-content">
+                <h2>お客様に届くメッセージのイメージ</h2>
+                <div class="message-grid">
+                    <div class="message-card">
+                        <div class="message-header">リマインド</div>
+                        <div class="message-body">山田様
+
+明日のご予約のリマインドです。📅
+
+日時：○月○日（○）14:00
+
+ご来店をお待ちしております！</div>
+                    </div>
+                    <div class="message-card">
+                        <div class="message-header">口コミ依頼</div>
+                        <div class="message-body">山田様
+
+本日はご来店いただきありがとうございました！✨
+
+もしよろしければ、Googleマップで口コミをいただけると大変嬉しいです🙏
+
+▼ 口コミはこちら
+https://g.page/r/...</div>
+                    </div>
+                </div>
+                <div class="message-note">メッセージ文章はサロンに合わせて変更できます。</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 08: Pricing -->
+        <div class="slide slide-08">
+            <div class="slide-content">
+                <h2>料金プラン</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-plan">Standard Plan</div>
+                        <div class="pricing-item"><span class="label">初期</span> ¥49,800</div>
+                        <div class="pricing-item"><span class="label">月額</span> ¥19,800</div>
+                        <div class="pricing-item"><span class="label">契約</span> 3ヶ月契約</div>
+                        <div class="pricing-note">※現在モニター枠優先のため受付停止</div>
+                    </div>
+                    <div class="pricing-card featured">
+                        <div class="pricing-badge">🔥先着7件限定</div>
+                        <div class="pricing-plan">Monitor Plan</div>
+                        <div class="pricing-item"><span class="label">初期</span> ¥29,800 <span style="color: var(--red); font-weight: 700;">¥20,000 OFF</span></div>
+                        <div class="pricing-item"><span class="label">月額</span> ¥9,800 <span style="color: var(--red); font-weight: 700;">¥10,000 OFF</span></div>
+                        <div class="pricing-item"><span class="label">契約</span> 3ヶ月契約</div>
+                    </div>
+                </div>
+                <div class="cost-benefit empty" id="cost-benefit-display">
+                    （SLIDE04で診断結果を計算後、ここに費用対効果が表示されます）
+                </div>
+            </div>
+            <div class="slide-memo">「「さっき計算した損失額と比べると、3ヶ月のトータルコストは◯◯円。損失が半減するだけで初月から回収できる計算になります。」」</div>
+        </div>
+
+        <!-- SLIDE 09: Q&A -->
+        <div class="slide slide-09">
+            <div class="slide-content">
+                <h2>よくいただくご質問</h2>
+                <div class="qa-grid">
+                    <div class="qa-item">
+                        <div class="qa-question">Q: LINEアカウントがない場合は？</div>
+                        <div class="qa-answer">A: 無料で開設できます。開設方法もサポートします。</div>
+                    </div>
+                    <div class="qa-item">
+                        <div class="qa-question">Q: スプレッドシートが苦手でも使えますか？</div>
+                        <div class="qa-answer">A: 入力は名前・日付・時刻だけです。Zoomでご説明します。</div>
+                    </div>
+                    <div class="qa-item">
+                        <div class="qa-question">Q: 3ヶ月後に解約できますか？</div>
+                        <div class="qa-answer">A: はい。3ヶ月後から公式LINEで簡単に解約できます。</div>
+                    </div>
+                    <div class="qa-item">
+                        <div class="qa-question">Q: 効果がなかったらどうなりますか？</div>
+                        <div class="qa-answer">A: 月次レポートで効果を一緒に確認します。改善提案もします。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-memo">「「よく聞かれる質問を先にまとめました。他に気になることがあれば何でも聞いてください。」」</div>
+        </div>
+
+        <!-- SLIDE 10: Application Flow -->
+        <div class="slide slide-10">
+            <div class="slide-content">
+                <h2>今日ご契約いただいた場合の流れ</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-number">1</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Day1</div>
+                            <div class="timeline-desc">ご契約・初期費用お振込み</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">2</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Day1-2</div>
+                            <div class="timeline-desc">情報共有（LINE公式アカウント情報等）</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">3</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Day3-7</div>
+                            <div class="timeline-desc">初期構築（AutoPiにて対応。オーナー様の作業不要）</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">4</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Day7</div>
+                            <div class="timeline-desc">Zoom納品説明（30分）・稼働スタート</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">5</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">毎月</div>
+                            <div class="timeline-desc">月次レポート共有 + LINEサポート継続</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-note">オーナー様が作業するのは最初の情報共有のみです。あとはお任せください。</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Closing -->
+        <div class="slide slide-11">
+            <div class="slide-content">
+                <h2>今日モニタープランに申し込むと</h2>
+                <div class="closing-highlight">
+                    <div class="highlight-item">✅ 初期費用 ¥29,800（通常¥49,800）</div>
+                    <div class="highlight-item">✅ 月額 ¥9,800（通常¥19,800）</div>
+                    <div class="highlight-item">✅ 3ヶ月で最大 ¥49,400 お得</div>
+                </div>
+                <div class="closing-urgent">🔥 モニター枠は先着7件。現在残り少数です。</div>
+                <div class="closing-cta">今すぐAutoPi公式LINEにメッセージをいただけますか？</div>
+                <div class="qr-placeholder">LINE QRコード</div>
+                <div class="closing-thanks">本日は貴重なお時間をいただきありがとうございました。</div>
+            </div>
+            <div class="slide-memo">「「今すぐでなくても大丈夫です。ただモニター枠には限りがあるので、検討いただけるようであれば早めにご連絡いただけると嬉しいです。」」</div>
+        </div>
+
+        <!-- SLIDE 12: END -->
+        <div class="slide slide-12">
+            <div class="slide-content">
+                <div class="logo">
+                    <span class="logo-auto">Auto</span><span class="logo-pi">Pi</span>
+                </div>
+                <div class="end-thanks">ありがとうございました</div>
+                <div class="divider-green"></div>
+                <div class="end-contact">松尾侑樹</div>
+                <div class="end-contact">LINE: <a href="#" class="end-contact-link">【LINE URLを入力】</a></div>
+                <div class="end-contact">Instagram: @autopi_salon</div>
+                <div class="end-message">ご不明な点はいつでもLINEへご連絡ください。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="indicator">
+        <span id="slide-current">1</span> / 12
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        // グローバルに診断結果を保持
+        window.diagnosisResult = null;
+
+        // 日付表示
+        function displayDate() {
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('ja-JP', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('date-display').textContent = dateStr;
+        }
+
+        // 診断計算関数
+        function calcDiagnosis(cancelCount, avgPrice, reviewCount, visitCount) {
+            const monthlyLoss = cancelCount * avgPrice;
+            const yearlyLoss = monthlyLoss * 12;
+            const recovery = Math.round(yearlyLoss * 0.5);
+            const cancelRate = (visitCount && visitCount > 0) ? (cancelCount / visitCount * 100).toFixed(1) : null;
+            
+            let reviewStatus, reviewMsg, reviewDiff;
+            if (reviewCount < 30) {
+                reviewStatus = 'danger';
+                reviewMsg = '⚠️ 危険ゾーン';
+                reviewDiff = 30 - reviewCount;
+            } else if (reviewCount < 80) {
+                reviewStatus = 'warning';
+                reviewMsg = '📈 改善の余地あり';
+                reviewDiff = 80 - reviewCount;
+            } else {
+                reviewStatus = 'good';
+                reviewMsg = '✅ 良好';
+                reviewDiff = 0;
+            }
+            
+            return {
+                monthlyLoss,
+                yearlyLoss,
+                recovery,
+                cancelRate,
+                reviewStatus,
+                reviewMsg,
+                reviewDiff
+            };
+        }
+
+        // カウントアップアニメーション
+        function animateCount(el, target, prefix = '¥', duration = 1200) {
+            const start = performance.now();
+            const update = (t) => {
+                const p = Math.min((t - start) / duration, 1);
+                const e = 1 - Math.pow(1 - p, 3);
+                el.textContent = prefix + Math.round(e * target).toLocaleString('ja-JP');
+                if (p < 1) requestAnimationFrame(update);
+            };
+            requestAnimationFrame(update);
+        }
+
+        // 診断ボタン動作
+        function calculateDiagnosis() {
+            const cancelCount = parseInt(document.getElementById('cancel-count').value) || 0;
+            const avgPrice = parseInt(document.getElementById('avg-price').value) || 0;
+            const reviewCount = parseInt(document.getElementById('review-count').value) || 0;
+            const visitCount = parseInt(document.getElementById('visit-count').value) || 0;
+
+            if (cancelCount <= 0 || avgPrice <= 0) {
+                alert('キャンセル件数と平均客単価を入力してください');
+                return;
+            }
+
+            const result = calcDiagnosis(cancelCount, avgPrice, reviewCount, visitCount);
+            window.diagnosisResult = result;
+
+            // 結果表示
+            const resultDisplay = document.getElementById('result-display');
+            let reviewSection = '';
+            
+            if (result.cancelRate !== null) {
+                const rateColor = result.cancelRate > 15 ? 'color: var(--red);' : 'color: var(--gray);';
+                reviewSection = `
+                    <div class="result-review">
+                        <div class="result-review-status" style="${rateColor}">キャンセル率: ${result.cancelRate}%</div>
+                        <div class="result-review-msg">${result.reviewMsg}</div>
+                    </div>
+                `;
+            }
+
+            resultDisplay.innerHTML = `
+                <div class="result-item">
+                    <div class="result-label">キャンセルによる年間損失額</div>
+                    <div class="result-value">¥<span id="yearly-loss">0</span></div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">AutoPiで削減できる見込み</div>
+                    <div class="result-value result-recovery">¥<span id="recovery">0</span></div>
+                </div>
+                ${reviewSection}
+                <div class="diagnosis-highlight visible">この損失、仕組みで半減できます。</div>
+            `;
+
+            // カウントアップアニメーション実行
+            animateCount(document.getElementById('yearly-loss'), result.yearlyLoss);
+            animateCount(document.getElementById('recovery'), result.recovery);
+
+            // 費用対効果を更新
+            updateCostBenefit(result);
+        }
+
+        // 費用対効果の表示
+        function updateCostBenefit(result) {
+            const costBenefitDisplay = document.getElementById('cost-benefit-display');
+            if (result) {
+                const totalCost = 29800 + (9800 * 3);
+                const monthlyRecovery = Math.round(result.yearlyLoss / 12 * 0.5);
+                const threeMonthRecovery = monthlyRecovery * 3;
+                
+                costBenefitDisplay.textContent = 
+                    `試算した年間損失¥${result.yearlyLoss.toLocaleString('ja-JP')}に対して、3ヶ月の投資は¥${totalCost.toLocaleString('ja-JP')}（初期+月額×3）。損失が半減するだけで3ヶ月で約¥${threeMonthRecovery.toLocaleString('ja-JP')}の回収見込み。`;
+                costBenefitDisplay.classList.remove('empty');
+            }
+        }
+
+        // スライド移動関数
+        function goTo(index) {
+            if (index < 0 || index >= totalSlides) return;
+            
+            slides[currentSlide].classList.remove('active');
+            slides[index].classList.add('active');
+            currentSlide = index;
+            
+            updateIndicator();
+        }
+
+        // インジケーター更新
+        function updateIndicator() {
+            document.getElementById('slide-current').textContent = currentSlide + 1;
+        }
+
+        // キーボード操作
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                goTo(currentSlide + 1);
+            }
+            if (e.key === 'ArrowLeft') {
+                goTo(currentSlide - 1);
+            }
+        });
+
+        // クリック操作（フォーム要素を除外）
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('input,button,a,select,textarea')) return;
+            
+            if (e.clientX > window.innerWidth / 2) {
+                goTo(currentSlide + 1);
+            } else {
+                goTo(currentSlide - 1);
+            }
+        });
+
+        // タッチスワイプ操作
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    goTo(currentSlide + 1);
+                } else {
+                    goTo(currentSlide - 1);
+                }
+            }
+        });
+
+        // 初期化
+        displayDate();
+        updateIndicator();
+    </script>
+</body>
+</html>

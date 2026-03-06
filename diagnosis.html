@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>無料診断 | AutoPi - サロンのキャンセル損失を診断</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #06C755;
+      --green-dark: #04a344;
+      --green-pale: #e8faf0;
+      --green-mid: #c8f0d8;
+      --black: #1a1a1a;
+      --gray: #666666;
+      --gray-light: #f8f8f8;
+      --white: #ffffff;
+      --red: #e74c3c;
+      --dark-bg: #0a1628;
+      --border: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: Poppins, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      color: var(--black);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      background: linear-gradient(135deg, var(--dark-bg), #1a2a3a);
+      color: var(--white);
+      padding: 60px 20px;
+      text-align: center;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--green);
+      color: var(--white);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+
+    .hero-icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      opacity: 0.95;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .hero-note {
+      font-size: 13px;
+      opacity: 0.8;
+      font-weight: 400;
+    }
+
+    /* ========== FORM SECTION ========== */
+    .form-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .form-section.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .form-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .input-field {
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .input-icon {
+      font-size: 28px;
+      min-width: 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .input-group {
+      flex: 1;
+      width: 100%;
+    }
+
+    .input-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--black);
+    }
+
+    .input-required {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 16px;
+      font-size: 20px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="number"]:focus,
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--green);
+    }
+
+    .input-hint {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    .diagnose-btn {
+      width: 100%;
+      padding: 18px;
+      margin-top: 20px;
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+      box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3);
+      font-family: inherit;
+    }
+
+    .diagnose-btn:hover:not(:disabled) {
+      background: var(--green-dark);
+      box-shadow: 0 6px 20px rgba(6, 199, 85, 0.4);
+    }
+
+    .diagnose-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ========== RESULTS SECTION ========== */
+    .results-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .results-section.fade-in {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .result-card {
+      background: linear-gradient(135deg, #c0392b, #e74c3c);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 20px;
+      color: var(--white);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      animation: slideUp 0.6s ease 0.2s both;
+    }
+
+    .result-card.green {
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+    }
+
+    .result-card.review {
+      background: linear-gradient(135deg, #34495e, #2c3e50);
+    }
+
+    .result-label {
+      font-size: 14px;
+      opacity: 0.95;
+      margin-bottom: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .result-value {
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .result-formula {
+      font-size: 13px;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+
+    .result-note {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* Review Card Variants */
+    .review-danger {
+      background: linear-gradient(135deg, #c0392b, #e74c3c) !important;
+    }
+
+    .review-warning {
+      background: linear-gradient(135deg, #d68910, #e67e22) !important;
+    }
+
+    .review-good {
+      background: linear-gradient(135deg, var(--green-dark), var(--green)) !important;
+    }
+
+    .review-status {
+      font-size: 24px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .review-msg {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .review-diff {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 8px;
+    }
+
+    /* Bridge Copy */
+    .bridge-copy {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0;
+      color: var(--black);
+      line-height: 1.3;
+    }
+
+    /* CTA Card */
+    .cta-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 100px;
+      animation: slideUp 0.6s ease 0.8s both;
+    }
+
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: var(--green);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3);
+      font-family: inherit;
+      margin-bottom: 15px;
+    }
+
+    .cta-btn:hover {
+      background: var(--green-dark);
+      box-shadow: 0 6px 20px rgba(6, 199, 85, 0.4);
+    }
+
+    .cta-disclaimer {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    /* Retry Link */
+    .retry-link {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .retry-link a {
+      color: var(--green);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .retry-link a:hover {
+      color: var(--green-dark);
+      text-decoration: underline;
+    }
+
+    /* ========== STICKY CTA BUTTON ========== */
+    .sticky-cta {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      left: 20px;
+      max-width: 680px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      color: var(--white);
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 6px 25px rgba(6, 199, 85, 0.35);
+      z-index: 999;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .sticky-cta:hover {
+      background: var(--green-dark);
+      box-shadow: 0 8px 30px rgba(6, 199, 85, 0.45);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: var(--gray-light);
+      padding: 30px 20px;
+      text-align: center;
+      margin-top: 60px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-content {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.8;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      margin-top: 12px;
+    }
+
+    .footer-links a {
+      color: var(--green);
+      text-decoration: none;
+      margin: 0 8px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--green-dark);
+      text-decoration: underline;
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 720px) {
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .hero-sub {
+        font-size: 14px;
+      }
+
+      .result-value {
+        font-size: 32px;
+      }
+
+      .bridge-copy {
+        font-size: 20px;
+      }
+
+      .form-card, .cta-card {
+        padding: 25px;
+      }
+
+      .input-field {
+        gap: 12px;
+      }
+
+      input[type="number"],
+      input[type="text"] {
+        font-size: 18px;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero">
+    <div class="hero-icon">🔍</div>
+    <div class="hero-badge">無料</div>
+    <h1>あなたのサロン、毎月いくら損していますか？</h1>
+    <p class="hero-sub">3つの数字を入力するだけで、キャンセルと口コミによる年間損失額を無料診断。</p>
+    <p class="hero-note">30秒・完全無料・登録不要</p>
+  </section>
+
+  <!-- ========== FORM SECTION ========== -->
+  <section class="form-section" id="formSection">
+    <div class="form-card">
+      <div class="input-field">
+        <div class="input-icon">📅</div>
+        <div class="input-group">
+          <label class="input-label">
+            月間のキャンセル件数（件）
+            <span class="input-required">*</span>
+          </label>
+          <input 
+            type="number" 
+            id="cancelCount" 
+            placeholder="例：5" 
+            min="0"
+          >
+          <div class="input-hint">※キャンセルされた件数</div>
+        </div>
+      </div>
+
+      <div class="input-field">
+        <div class="input-icon">💴</div>
+        <div class="input-group">
+          <label class="input-label">
+            1件あたりの平均客単価（円）
+            <span class="input-required">*</span>
+          </label>
+          <input 
+            type="number" 
+            id="avgPrice" 
+            placeholder="例：8000" 
+            min="0"
+          >
+          <div class="input-hint">※平均的な来店時の売上額</div>
+        </div>
+      </div>
+
+      <div class="input-field">
+        <div class="input-icon">⭐</div>
+        <div class="input-group">
+          <label class="input-label">
+            現在のGoogleマップ口コミ数（件）
+            <span class="input-required">*</span>
+          </label>
+          <input 
+            type="number" 
+            id="reviewCount" 
+            placeholder="例：12" 
+            min="0"
+          >
+          <div class="input-hint">※Googleビジネスプロフィール上の口コミ数</div>
+        </div>
+      </div>
+
+      <div class="input-field">
+        <div class="input-icon">👥</div>
+        <div class="input-group">
+          <label class="input-label">
+            月間の来店客数（人）
+            <span style="color: var(--gray); font-size: 12px;">（任意）</span>
+          </label>
+          <input 
+            type="number" 
+            id="visitCount" 
+            placeholder="例：60（任意）" 
+            min="0"
+          >
+          <div class="input-hint">※キャンセル率を計算したい場合は入力</div>
+        </div>
+      </div>
+
+      <button class="diagnose-btn" id="diagnoseBtn" disabled>
+        🔍 損失額を診断する
+      </button>
+    </div>
+  </section>
+
+  <!-- ========== RESULTS SECTION ========== -->
+  <section class="results-section" id="resultsSection">
+    <!-- Card 1: Annual Cancellation Loss -->
+    <div class="result-card" id="card1">
+      <div class="result-label">キャンセルによる年間損失額</div>
+      <div class="result-value" id="yearlyLossValue">¥0</div>
+      <div class="result-formula" id="yearlyLossFormula">月0件 × ¥0 × 12ヶ月</div>
+    </div>
+
+    <!-- Card 2: AutoPi Savings -->
+    <div class="result-card green" id="card2">
+      <div class="result-label">AutoPiで年間削減できる損失（試算）</div>
+      <div class="result-value" id="recoveryValue">¥0</div>
+      <div class="result-note">※キャンセル50%削減として試算</div>
+    </div>
+
+    <!-- Card 3: Review Status -->
+    <div class="result-card review" id="reviewCard">
+      <div class="review-status" id="reviewStatus"></div>
+      <div class="review-msg" id="reviewMsg"></div>
+      <div class="review-diff" id="reviewDiff"></div>
+    </div>
+
+    <!-- Card 4: Cancel Rate (Conditional) -->
+    <div class="result-card" id="card4" style="display: none; background: linear-gradient(135deg, #8e44ad, #9b59b6);">
+      <div class="result-label">キャンセル率</div>
+      <div class="result-value" id="cancelRateValue">0%</div>
+      <div class="result-note">業界平均 3～5%と比較</div>
+    </div>
+
+    <!-- Bridge Copy -->
+    <div class="bridge-copy">
+      このキャンセル損失、仕組みで半減できます。
+    </div>
+
+    <!-- CTA Card -->
+    <div class="cta-card">
+      <a href="index.html" class="cta-btn">→ キャンセル損失を半減させる仕組みを見る</a>
+      <div class="cta-disclaimer">
+        完全無料でご相談できます。売り込みは一切しません。
+      </div>
+    </div>
+
+    <!-- Retry Link -->
+    <div class="retry-link">
+      <a href="#" id="retryLink">← もう一度入力する</a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">AutoPi</div>
+      <div>松尾侑樹 | © 2026</div>
+      <div class="footer-links">
+        <a href="index.html">運営者情報</a>
+        <a href="index.html">利用規約</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== STICKY CTA BUTTON ========== -->
+  <a href="#" id="stickyCtaBtn" class="sticky-cta">
+    💬 LINEで無料相談する
+  </a>
+
+  <script>
+    // ========== CALCULATION LOGIC ==========
+    function calcDiagnosis(cancelCount, avgPrice, reviewCount, visitCount) {
+      const monthlyLoss = cancelCount * avgPrice;
+      const yearlyLoss = monthlyLoss * 12;
+      const recovery = Math.round(yearlyLoss * 0.5);
+      const cancelRate = (visitCount && visitCount > 0) ? (cancelCount / visitCount * 100).toFixed(1) : null;
+      
+      let reviewStatus, reviewMsg, reviewDiff, reviewColor;
+      if (reviewCount < 30) {
+        reviewStatus = 'danger';
+        reviewMsg = '⚠️ 危険ゾーン';
+        reviewDiff = 30 - reviewCount;
+        reviewColor = '#e74c3c';
+      } else if (reviewCount < 80) {
+        reviewStatus = 'warning';
+        reviewMsg = '📈 改善の余地あり';
+        reviewDiff = 80 - reviewCount;
+        reviewColor = '#e67e22';
+      } else {
+        reviewStatus = 'good';
+        reviewMsg = '✅ 良好';
+        reviewDiff = 0;
+        reviewColor = '#06C755';
+      }
+      
+      return {
+        monthlyLoss,
+        yearlyLoss,
+        recovery,
+        cancelRate,
+        reviewStatus,
+        reviewMsg,
+        reviewDiff,
+        reviewColor
+      };
+    }
+
+    // ========== ANIMATION LOGIC ==========
+    function animateCount(element, targetValue, prefix = '¥', duration = 1200) {
+      const start = performance.now();
+      const update = (time) => {
+        const elapsed = time - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * targetValue);
+        element.textContent = prefix + current.toLocaleString('ja-JP');
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+
+    // ========== FADE IN/OUT HELPERS ==========
+    function fadeOut(element) {
+      element.classList.add('fade-out');
+    }
+
+    function fadeIn(element) {
+      element.classList.remove('fade-out');
+      element.classList.add('fade-in');
+    }
+
+    function reset() {
+      const formSection = document.getElementById('formSection');
+      const resultsSection = document.getElementById('resultsSection');
+      formSection.classList.remove('fade-out');
+      resultsSection.classList.remove('fade-in');
+      window.scrollTo(0, 0);
+    }
+
+    // ========== FORM VALIDATION ==========
+    const cancelCountInput = document.getElementById('cancelCount');
+    const avgPriceInput = document.getElementById('avgPrice');
+    const reviewCountInput = document.getElementById('reviewCount');
+    const visitCountInput = document.getElementById('visitCount');
+    const diagnoseBtn = document.getElementById('diagnoseBtn');
+
+    function validateForm() {
+      const cancelCount = cancelCountInput.value.trim();
+      const avgPrice = avgPriceInput.value.trim();
+      const reviewCount = reviewCountInput.value.trim();
+
+      const allFilled = cancelCount !== '' && avgPrice !== '' && reviewCount !== '';
+      diagnoseBtn.disabled = !allFilled;
+    }
+
+    cancelCountInput.addEventListener('input', validateForm);
+    avgPriceInput.addEventListener('input', validateForm);
+    reviewCountInput.addEventListener('input', validateForm);
+
+    // ========== DIAGNOSE BUTTON HANDLER ==========
+    diagnoseBtn.addEventListener('click', function() {
+      const cancelCount = parseInt(cancelCountInput.value, 10);
+      const avgPrice = parseInt(avgPriceInput.value, 10);
+      const reviewCount = parseInt(reviewCountInput.value, 10);
+      const visitCount = visitCountInput.value.trim() !== '' ? parseInt(visitCountInput.value, 10) : 0;
+
+      // Validation
+      if (isNaN(cancelCount) || isNaN(avgPrice) || isNaN(reviewCount)) {
+        alert('必須項目を正しく入力してください。');
+        return;
+      }
+
+      // Calculate
+      const result = calcDiagnosis(cancelCount, avgPrice, reviewCount, visitCount);
+
+      // Update UI
+      updateResults(cancelCount, avgPrice, result);
+
+      // Animate transition
+      fadeOut(document.getElementById('formSection'));
+      setTimeout(() => {
+        fadeIn(document.getElementById('resultsSection'));
+        window.scrollTo(0, 0);
+      }, 300);
+    });
+
+    // ========== RESULTS UPDATE LOGIC ==========
+    function updateResults(cancelCount, avgPrice, result) {
+      // Card 1: Yearly Loss
+      document.getElementById('yearlyLossValue').textContent = '¥0';
+      document.getElementById('yearlyLossFormula').textContent = `月${cancelCount}件 × ¥${avgPrice.toLocaleString('ja-JP')} × 12ヶ月`;
+      animateCount(document.getElementById('yearlyLossValue'), result.yearlyLoss, '¥', 1200);
+
+      // Card 2: Recovery
+      document.getElementById('recoveryValue').textContent = '¥0';
+      animateCount(document.getElementById('recoveryValue'), result.recovery, '¥', 1200);
+
+      // Card 3: Review Status
+      const reviewCard = document.getElementById('reviewCard');
+      const reviewMsg = document.getElementById('reviewMsg');
+      const reviewDiff = document.getElementById('reviewDiff');
+      const reviewStatus = document.getElementById('reviewStatus');
+
+      reviewCard.classList.remove('review-danger', 'review-warning', 'review-good');
+      if (result.reviewStatus === 'danger') {
+        reviewCard.classList.add('review-danger');
+        reviewStatus.textContent = '⚠️';
+        reviewMsg.textContent = '危険ゾーン';
+        reviewDiff.textContent = `— あと${result.reviewDiff}件で検索に出やすくなります`;
+      } else if (result.reviewStatus === 'warning') {
+        reviewCard.classList.add('review-warning');
+        reviewStatus.textContent = '📈';
+        reviewMsg.textContent = '改善の余地あり';
+        reviewDiff.textContent = `— あと${result.reviewDiff}件で上位表示が近づきます`;
+      } else {
+        reviewCard.classList.add('review-good');
+        reviewStatus.textContent = '✅';
+        reviewMsg.textContent = '良好';
+        reviewDiff.textContent = `— このまま維持＋増加が理想です`;
+      }
+
+      // Card 4: Cancel Rate (Conditional)
+      const card4 = document.getElementById('card4');
+      if (result.cancelRate !== null) {
+        card4.style.display = 'block';
+        document.getElementById('cancelRateValue').textContent = result.cancelRate + '%';
+      } else {
+        card4.style.display = 'none';
+      }
+    }
+
+    // ========== RETRY LINK HANDLER ==========
+    document.getElementById('retryLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      reset();
+      cancelCountInput.value = '';
+      avgPriceInput.value = '';
+      reviewCountInput.value = '';
+      visitCountInput.value = '';
+      validateForm();
+    });
+
+    // ========== STICKY CTA BUTTON (PLACEHOLDER) ==========
+    // Replace with actual LINE URL
+    document.getElementById('stickyCtaBtn').href = '#'; // Change to actual LINE URL
+    document.getElementById('stickyCtaBtn').addEventListener('click', function(e) {
+      // Placeholder: You can add tracking or redirect logic here
+    });
+
+    // Initial validation
+    validateForm();
+  </script>
+
+</body>
+</html>

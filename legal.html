@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AutoPi（オートピ）利用規約・特定商取引法に基づく表記">
+  <title>AutoPi - 利用規約・特定商取引法に基づく表記</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --green: #06C755;
+      --green-dark: #04a344;
+      --green-pale: #e8faf0;
+      --black: #1a1a1a;
+      --gray: #666666;
+      --gray-light: #f8f8f8;
+      --white: #ffffff;
+      --border: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Poppins', sans-serif;
+      color: var(--black);
+      line-height: 1.8;
+      background-color: var(--white);
+      font-size: 13px;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: var(--white);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 15px 0;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: -1px;
+    }
+
+    nav {
+      display: flex;
+      gap: 40px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.3s;
+      padding-bottom: 8px;
+      border-bottom: 2px solid transparent;
+    }
+
+    nav a:hover {
+      color: var(--green);
+    }
+
+    nav a.active {
+      color: var(--green);
+      border-bottom-color: var(--green);
+    }
+
+    /* MAIN CONTENT */
+    main {
+      padding: 40px 0;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+
+    .article-header {
+      background-color: var(--green-pale);
+      padding: 12px 16px;
+      border-left: 4px solid var(--green);
+      margin-top: 32px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .article-body {
+      padding: 0 0 16px 0;
+      line-height: 1.8;
+    }
+
+    .article-body p {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    .article-body ul, .article-body ol {
+      margin-bottom: 16px;
+      padding-left: 28px;
+    }
+
+    .article-body li {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 8px;
+      line-height: 1.8;
+    }
+
+    p {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    ul, ol {
+      margin-bottom: 16px;
+      padding-left: 28px;
+    }
+
+    li {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 8px;
+      line-height: 1.8;
+    }
+
+    .update-date {
+      font-size: 12px;
+      color: var(--gray);
+      margin-bottom: 32px;
+    }
+
+    /* TOKUSHO TABLE */
+    .tokusho-table {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    th {
+      background-color: var(--green-pale);
+      font-weight: 700;
+      color: var(--black);
+      width: 30%;
+      word-break: break-word;
+    }
+
+    td {
+      color: var(--gray);
+      word-break: break-word;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #111;
+      color: var(--white);
+      padding: 40px 0;
+      text-align: center;
+      font-size: 12px;
+      margin-top: 80px;
+    }
+
+    .footer-logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .footer-content {
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--green);
+    }
+
+    .footer-copyright {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 11px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 24px;
+      color: var(--green);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover {
+      color: var(--green-dark);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .article-header {
+        font-size: 13px;
+        padding: 10px 14px;
+      }
+
+      nav {
+        gap: 20px;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      th {
+        width: 35%;
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 10px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+        <span style="color:#1a1a1a">Auto</span><span style="color:#06C755">Pi</span>
+      </a>
+      <nav>
+        <a href="#tos" onclick="switchTab('tos')">利用規約</a>
+        <a href="#tokusho" onclick="switchTab('tokusho')">特定商取引法</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="container">
+      <a href="index.html" class="back-link">← トップページに戻る</a>
+
+      <!-- SECTION 1: TERMS OF SERVICE -->
+      <section id="tos">
+        <h1>AutoPi サービス利用規約</h1>
+        <p class="update-date">最終更新日：2026年3月5日</p>
+
+        <div class="article-header">第1条（総則）</div>
+        <div class="article-body">
+          <p>1. 本規約は、事業者が提供する本サービスの利用条件を定めるものです。</p>
+          <p>2. 本サービスは、美容サロン等の事業者（法人・個人事業主）を対象としたBtoBサービスです。消費者個人への提供は含みません。</p>
+          <p>3. 本規約は、事業者が別途定める個別契約書・見積書等と合わせて本サービスの利用条件を構成します。個別契約と本規約が矛盾する場合は、個別契約が優先されます。</p>
+        </div>
+
+        <div class="article-header">第2条（定義）</div>
+        <div class="article-body">
+          <p>本規約において、以下の用語は次の意味を有します。</p>
+          <ul>
+            <li>「利用者」：本サービスを利用する美容サロン等の事業者（法人・個人事業主）を指します。</li>
+            <li>「契約」：本規約および個別契約書に基づく、利用者と事業者の間の本サービス利用契約を指します。</li>
+            <li>「初期費用」：本サービス開始にあたって事業者が行うLINE自動化システムの設計・構築・設定作業の対価として請求される費用を指します。</li>
+            <li>「月額利用料」：本サービスの継続的な利用・運用・サポートの対価として毎月請求される費用を指します。</li>
+            <li>「モニタープラン」：初期費用29,800円（税込）、月額利用料9,800円（税込）のプランを指します。</li>
+            <li>「通常プラン」：初期費用49,800円（税込）、月額利用料19,800円（税込）のプランを指します。</li>
+            <li>「LINEプラットフォーム」：LINE株式会社が提供するLINE公式アカウント・LINE Messaging APIおよび関連サービスの総称を指します。</li>
+          </ul>
+        </div>
+
+        <div class="article-header">第3条（サービスの内容）</div>
+        <div class="article-body">
+          <p>1. 事業者は、利用者に対して以下の機能を提供します。</p>
+          <ul>
+            <li>【予約リマインド自動送信】Googleスプレッドシートへの予約情報入力をトリガーに、Google Apps Script（GAS）がLINE公式アカウント経由で予約前日に自動リマインドメッセージを送信する機能。</li>
+            <li>【口コミ依頼自動送信】来店当日の指定時間帯に、来店者へのサンクスメッセージおよびGoogleマップ口コミ投稿URLをLINE経由で自動送信する機能。</li>
+            <li>【月次売上レポート】キャンセル数・口コミ数の推移および売上改善の試算を月1回提供するレポート（Googleスプレッドシート形式）。</li>
+          </ul>
+          <p>2. 本サービスは、LINEプラットフォームを利用して提供されます。LINEプラットフォームの各料金プランによるメッセージ送信数の上限は以下のとおりです。</p>
+          <ul>
+            <li>コミュニケーションプラン（無料）：月間200通まで。概ね月100件以下の予約件数のサロンに対応します。</li>
+            <li>ライトプラン（月額5,000円・LINE社の定める料金）：月間5,000通まで。月100件超の予約件数のサロンに対応します。</li>
+            <li>上限を超えるメッセージ送信が見込まれる場合、事業者は利用者にライトプランへの移行を案内します。LINEプランの費用は利用者の負担となります。</li>
+          </ul>
+          <p>3. 本サービスはクラウドベース（Google Apps Script）で提供されます。インターネット接続環境が必要です。</p>
+          <p>4. 事業者は、事前に利用者へ30日以上前に通知することで、本サービスの内容を変更することができます。</p>
+        </div>
+
+        <div class="article-header">第4条（利用登録・契約の成立）</div>
+        <div class="article-body">
+          <p>1. 本サービスの利用を希望する者は、以下の要件を満たす必要があります。</p>
+          <ul>
+            <li>日本国内で適法に事業を営む法人または個人事業主であること。</li>
+            <li>反社会的勢力（第15条に定義）に属していないこと。</li>
+            <li>本規約の全条項に同意できること。</li>
+          </ul>
+          <p>2. 利用者は、事業者が指定する方法により申込みを行います。</p>
+          <p>3. 契約は、利用者が初期費用および初月の月額利用料の全額を事業者の指定口座に入金し、事業者が入金を確認した時点で成立します。申込書・見積書への署名・押印等のみをもって契約が成立するものではありません。</p>
+          <p>4. 利用者は、自らのアカウント情報（ログイン情報等）を厳重に管理する責任を負います。不正アクセス等を発見した場合は、速やかに事業者に通知してください。</p>
+        </div>
+
+        <div class="article-header">第5条（料金・支払い）</div>
+        <div class="article-body">
+          <p>1. 利用者は、契約するプランに応じた以下の料金を支払うものとします（全て税込表示）。</p>
+          <ul>
+            <li>モニタープラン（契約期間：3ヶ月）初期費用：29,800円　月額費用：9,800円</li>
+            <li>通常プラン（契約期間：3ヶ月）初期費用：49,800円　月額費用：19,800円</li>
+          </ul>
+          <p>2. 初期費用は、事業者が行う初期構築作業（システム設計・構築・設定・テスト・利用者への初期説明）の対価であり、契約成立（第4条第3項）をもって確定します。初期構築作業着手後は、利用者の都合による返金はできません。</p>
+          <p>3. 月額利用料は、毎月1日に翌月分が発生し、事業者の指定する方法により請求します。支払期限は請求日から30日以内とします。</p>
+          <p>4. 支払いは銀行振込にて行うものとします。振込手数料は利用者の負担とします。振込先口座は、契約成立時に別途ご案内します。</p>
+          <p>5. 支払期限を経過した場合、利用者は未払い金額に対し年14.6%（日歩4銭、商事法定利率に準拠）の遅延損害金を支払うものとします。</p>
+          <p>6. 月額利用料は、利用日数にかかわらず1ヶ月単位での請求となります。月の途中で解約した場合の日割り精算は行いません。</p>
+        </div>
+
+        <div class="article-header">第6条（契約期間・更新・解約）</div>
+        <div class="article-body">
+          <p>1. 本サービスの初期契約期間は、契約成立日から3ヶ月間とします。</p>
+          <p>2. 契約期間満了の30日前までに利用者または事業者から解約の申し出がない場合、本契約は同一条件で3ヶ月間自動更新されます。以後も同様とします。</p>
+          <p>3. 利用者は、初期契約期間（3ヶ月）経過後、下記の方法により解約できます。</p>
+          <ul>
+            <li>解約を希望する月の前月末日（月末日の30日前）までに、AutoPi公式LINEアカウント（以下「公式LINE」）に解約の旨をメッセージにてお送りください。</li>
+            <li>事業者が解約受付の旨を公式LINEにて返信した時点で解約の申し出が成立します。</li>
+            <li>サービスは当該月の末日をもって終了します。</li>
+          </ul>
+          <p>4. 初期契約期間（3ヶ月）中の中途解約は、原則として受け付けません。ただし、事業者のサービス提供に重大な瑕疵があると認められる場合はこの限りではありません。</p>
+          <p>5. 解約後に既に支払われた月額利用料の返金は行いません。</p>
+          <p>6. 事業者は、利用者が第7条（禁止事項）に違反した場合、その他本規約に違反した場合、または本サービスの提供が困難と判断した場合には、30日前の通知をもって本契約を解除することができます。</p>
+          <p><strong>【解約手続き先】</strong>AutoPi公式LINEアカウント　※公式LINEのURLは契約成立時に別途ご案内します。</p>
+        </div>
+
+        <div class="article-header">第7条（禁止事項）</div>
+        <div class="article-body">
+          <p>1. 利用者は、本サービスの利用にあたり、以下の行為を行ってはなりません。</p>
+          <ul>
+            <li>（1）法令または公序良俗に違反する行為</li>
+            <li>（2）犯罪行為に関連する行為</li>
+            <li>（3）事業者または第三者の著作権、商標権、特許権その他の知的財産権を侵害する行為</li>
+            <li>（4）事業者または第三者の名誉・信用を毀損する行為、またはプライバシーを侵害する行為</li>
+            <li>（5）事業者のシステムに不正にアクセスする行為、またはその試み</li>
+            <li>（6）本サービスのシステムに過度な負荷をかける行為</li>
+            <li>（7）コンピューターウイルスその他の有害なプログラムを送信または配布する行為</li>
+            <li>（8）LINEプラットフォームの利用規約・ガイドラインに違反する行為（スパム送信、架空アカウントの利用等を含む）</li>
+            <li>（9）本サービスを通じて、スパムメッセージ・迷惑メッセージを送信する行為</li>
+            <li>（10）本サービスのアカウントまたは利用権を第三者に譲渡・貸与・売買する行為</li>
+            <li>（11）事業者の事前の書面による承諾なく、本サービスを第三者に転貸・再提供する行為</li>
+            <li>（12）事業者の競合サービスの開発・提供を目的として本サービスを利用する行為</li>
+            <li>（13）本サービスのリバースエンジニアリング、逆コンパイル、逆アセンブルを行う行為</li>
+            <li>（14）虚偽の情報を登録または提供する行為</li>
+            <li>（15）その他、事業者が不適切と合理的に判断する行為</li>
+          </ul>
+          <p>2. 利用者が前項各号に違反した場合、事業者は催告なしに本契約を解除し、損害の賠償を請求することができます。</p>
+        </div>
+
+        <div class="article-header">第8条（第三者サービスの利用）</div>
+        <div class="article-body">
+          <p>1. 本サービスは、LINE株式会社が提供するLINEプラットフォーム、Googleが提供するGoogle Apps Script・Googleスプレッドシートその他の第三者サービス（以下「外部サービス」）を利用して提供されます。</p>
+          <p>2. 外部サービスの仕様変更・機能変更・サービス停止・利用規約の変更等により本サービスの全部または一部が利用できなくなった場合、事業者は可能な範囲で代替手段を検討しますが、当該不具合・停止について責任を負わないものとします。</p>
+          <p>3. LINE公式アカウントの料金プラン変更（メッセージ送信数上限の変更を含む）により追加費用が発生した場合、その費用は利用者の負担とします。</p>
+          <p>4. 利用者は、外部サービスの利用規約を遵守する責任を負います。外部サービスの利用規約違反によって生じた損害について、事業者は責任を負いません。</p>
+        </div>
+
+        <div class="article-header">第9条（個人情報・データの取り扱い）</div>
+        <div class="article-body">
+          <p>1. 事業者は、個人情報の保護に関する法律（個人情報保護法）その他関連法令を遵守し、個人情報を適切に取り扱います。</p>
+          <p>2. 本サービスを通じて取得・処理される個人情報には、利用者のサロン顧客の氏名・LINE利用者識別子（User ID）・予約情報等が含まれます。これらの情報は本サービス提供の目的のみに使用し、第三者への提供・漏洩防止のために適切なセキュリティ措置を講じます。</p>
+          <p>3. 事業者は、以下の場合を除き、利用者から提供された情報を第三者に開示・提供しません。</p>
+          <ul>
+            <li>利用者の事前の同意がある場合</li>
+            <li>法令に基づく開示要請がある場合</li>
+            <li>本サービスの提供に必要な範囲で外部サービス事業者と共有する場合</li>
+          </ul>
+          <p>4. 利用者は、本サービスを通じて取得したサロン顧客の個人情報について、自社の個人情報取り扱い方針に基づき適切に管理する責任を負います。</p>
+          <p>5. 契約終了後（解約・期間満了を問わず）、事業者が管理するサーバー上の利用者データは、契約終了日から30日以内に削除します。</p>
+        </div>
+
+        <div class="article-header">第10条（秘密保持）</div>
+        <div class="article-body">
+          <p>1. 利用者および事業者は、本契約の履行に関連して相手方から開示を受けた技術上・営業上・その他の情報のうち、相手方が秘密と指定した情報または秘密であることが合理的に推認される情報（以下「秘密情報」）を、相手方の書面（電磁的記録を含む）による事前の同意なく第三者に開示・漏洩し、または本サービスの利用目的以外に使用してはなりません。</p>
+          <p>2. 以下の情報は秘密情報に該当しません。</p>
+          <ul>
+            <li>開示を受けた時点で既に公知であった情報</li>
+            <li>開示を受けた後、受領者の責によらず公知となった情報</li>
+            <li>受領者が独自に開発した情報</li>
+            <li>第三者から秘密保持義務を負わずに正当に入手した情報</li>
+            <li>法令・裁判所・行政機関の命令により開示が求められた情報</li>
+          </ul>
+          <p>3. 秘密保持義務は、本契約終了後3年間存続します。</p>
+        </div>
+
+        <div class="article-header">第11条（知的財産権）</div>
+        <div class="article-body">
+          <p>1. 本サービスに関する著作権・特許権・商標権その他一切の知的財産権は、事業者または正当な権利者に帰属します。本規約は、利用者に対して本サービスを利用するための非独占的・譲渡不可能な使用権を付与するものに過ぎず、その他の知的財産権を付与するものではありません。</p>
+          <p>2. 利用者が本サービスを通じて入力・作成・送信したコンテンツ（メッセージ文章・顧客情報等）の権利は利用者に帰属します。ただし、利用者は事業者がサービス提供・改善・品質管理の目的において当該コンテンツを利用することに同意するものとします。</p>
+          <p>3. 事業者が本サービス提供前から保有するノウハウ・ツール・汎用テンプレート・スクリプト等の知的財産権は事業者に帰属し、契約終了後も引き続き事業者に帰属します。</p>
+        </div>
+
+        <div class="article-header">第12条（サポート・問い合わせ）</div>
+        <div class="article-body">
+          <p>1. 本サービスに関するお問い合わせ・サポートの窓口は、AutoPi公式LINEアカウントとします。</p>
+          <p>2. サポートの対応時間は、原則として平日10:00〜18:00とします。</p>
+          <p>3. 事業者が対応するサポートの範囲は以下のとおりです。</p>
+          <ul>
+            <li>本サービスの操作方法・機能に関するご説明</li>
+            <li>Googleスプレッドシートへの初期設定・操作サポート</li>
+            <li>LINE自動送信の動作確認・不具合対応</li>
+            <li>月次レポートの内容に関するご説明</li>
+          </ul>
+          <p>4. 以下の事項は本サービスのサポート対象外です。</p>
+          <ul>
+            <li>利用者自身がスプレッドシートを誤操作・改変したことによる不具合の対応</li>
+            <li>LINEプラットフォーム・Googleサービス自体の障害・仕様変更への対応</li>
+            <li>本サービスの提供範囲外のITサポート（パソコン操作、Wi-Fi設定等）</li>
+            <li>利用者が独自にカスタマイズした機能・設定に関するサポート</li>
+            <li>第三者が提供する関連サービス（ホットペッパー、Googleビジネスプロフィール等）の操作サポート</li>
+          </ul>
+        </div>
+
+        <div class="article-header">第13条（免責事項・サービスの変更・停止）</div>
+        <div class="article-body">
+          <p>1. 事業者は、本サービスを「現状のまま（as is）」提供します。本サービスが利用者の特定の目的に適合すること、期待する機能・商品価値・正確性・有用性を有すること、および不具合が生じないことを保証しません。</p>
+          <p>2. 以下の事由によるサービス停止・機能不全については、事業者は責任を負いません。</p>
+          <ul>
+            <li>LINEプラットフォーム・GoogleサービスなどのAPIの仕様変更、障害、利用停止</li>
+            <li>インターネット回線の障害、通信環境の問題</li>
+            <li>天災・地震・停電・感染症など不可抗力による障害</li>
+            <li>利用者によるGoogleスプレッドシートの誤操作・改変</li>
+            <li>利用者のLINE公式アカウントの設定ミスまたはLINE利用規約違反による制限・停止</li>
+          </ul>
+          <p>3. 事業者は、品質向上・機能追加・セキュリティ対応を目的とするシステムメンテナンスのため、事前に通知のうえ本サービスを一時停止することがあります。</p>
+          <p>4. 定期メンテナンス等によるサービス停止中の月額利用料の減額・返金は行いません。ただし、事業者の故意・重過失によって7日以上継続してサービスが利用不能となった場合は、個別に協議します。</p>
+        </div>
+
+        <div class="article-header">第14条（損害賠償）</div>
+        <div class="article-body">
+          <p>1. 事業者が本規約に違反したことにより利用者に損害を与えた場合、事業者は損害を賠償します。ただし、賠償額の上限は、損害発生の直近3ヶ月間に利用者が事業者に支払った月額利用料の合計額とします。</p>
+          <p>2. 事業者は、逸失利益・間接損害・特別損害（予見可能性の有無を問わず）について責任を負いません。</p>
+          <p>3. 利用者が本規約または法令に違反して事業者または第三者に損害を与えた場合、利用者は当該損害の全額を賠償する責任を負います。</p>
+        </div>
+
+        <div class="article-header">第15条（反社会的勢力の排除）</div>
+        <div class="article-body">
+          <p>1. 利用者および事業者は、現在および将来にわたり、自己ならびに自己の役員・従業員が、暴力団・暴力団員・暴力団準構成員・暴力団関係企業・総会屋・社会運動標ぼうゴロ・特殊知能暴力集団その他これらに準ずる者（以下「反社会的勢力」）に該当しないこと、および以下の行為を行わないことを表明・保証します。</p>
+          <ul>
+            <li>反社会的勢力への資金提供その他の行為を通じて反社会的勢力の維持・運営に協力する行為</li>
+            <li>反社会的勢力を利用して不当な要求を行う行為</li>
+            <li>自らまたは第三者を利用した暴力的な要求行為・脅迫的な言動</li>
+          </ul>
+          <p>2. 利用者または事業者が前項の表明・保証に違反した場合、相手方は催告なしに本契約を即時解除することができます。既払いの費用は返金しません。</p>
+        </div>
+
+        <div class="article-header">第16条（規約の変更）</div>
+        <div class="article-body">
+          <p>1. 事業者は、以下の場合に利用者の個別同意を得ることなく本規約を変更することができます。</p>
+          <ul>
+            <li>法令の変更に対応するための変更であって、利用者の利益に影響しない場合</li>
+            <li>利用者の一般の利益に適合する変更である場合</li>
+          </ul>
+          <p>2. 前項に該当しない規約の変更については、変更内容・変更日を変更効力発生日の少なくとも30日前に公式LINEまたはその他の方法にて利用者に通知します。変更後も本サービスを継続して利用した場合は、変更内容に同意したものとみなします。</p>
+          <p>3. 利用者が規約変更に同意できない場合は、変更効力発生日の前日までに第6条の手続きに従い解約することができます。</p>
+        </div>
+
+        <div class="article-header">第17条（準拠法・管轄裁判所）</div>
+        <div class="article-body">
+          <p>1. 本規約は、日本国法に準拠し、日本国法に従って解釈されます。</p>
+          <p>2. 本規約に関する一切の紛争については、東京地方裁判所を第一審の専属的合意管轄裁判所とします。</p>
+        </div>
+
+        <p style="margin-top: 40px; font-size: 12px; border-top: 1px solid var(--border); padding-top: 20px;">
+          AutoPi（オートピ）　事業者：松尾侑樹
+        </p>
+      </section>
+
+      <!-- SECTION 2: SPECIFIED COMMERCIAL TRANSACTION ACT -->
+      <section id="tokusho">
+        <h1>特定商取引法に基づく表記</h1>
+
+        <div class="tokusho-table">
+          <table>
+            <tr>
+              <th>販売業者（事業者）</th>
+              <td>松尾侑樹</td>
+            </tr>
+            <tr>
+              <th>代表者</th>
+              <td>松尾侑樹</td>
+            </tr>
+            <tr>
+              <th>所在地</th>
+              <td>東京都（詳細はお問い合わせ後にご連絡します）</td>
+            </tr>
+            <tr>
+              <th>電話番号</th>
+              <td>お問い合わせ後に開示します</td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td>m.yuuki0224@gmail.com</td>
+            </tr>
+            <tr>
+              <th>お問い合わせ窓口</th>
+              <td>AutoPi公式LINEアカウント（契約成立時にURL案内）／平日10:00〜18:00</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="article-header">役務の概要</div>
+        <div class="tokusho-table">
+          <table>
+            <tr>
+              <th>役務の名称</th>
+              <td>AutoPi（オートピ）LINE自動化サービス</td>
+            </tr>
+            <tr>
+              <th>役務の内容</th>
+              <td>LINE公式アカウントを活用した予約リマインド・口コミ依頼の自動送信システムの構築・運用サポート。Google Apps Script（GAS）とGoogleスプレッドシートを連携させ、Googleマップ口コミ投稿URLの自動送信、月次売上改善レポート提供を含みます。</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="article-header">販売価格</div>
+        <div class="tokusho-table">
+          <table>
+            <tr>
+              <th>プラン</th>
+              <td><strong>モニタープラン</strong><br>初期費用：29,800円（税込）<br>月額利用料：9,800円（税込）</td>
+            </tr>
+            <tr>
+              <th>プラン</th>
+              <td><strong>通常プラン</strong><br>初期費用：49,800円（税込）<br>月額利用料：19,800円（税込）</td>
+            </tr>
+            <tr>
+              <th>追加費用</th>
+              <td>LINEプランのアップグレードが必要な場合、LINE社の定める料金が追加で発生する場合があります。</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="article-header">支払方法・支払時期</div>
+        <div class="tokusho-table">
+          <table>
+            <tr>
+              <th>支払方法</th>
+              <td>銀行振込（振込手数料は利用者負担）</td>
+            </tr>
+            <tr>
+              <th>支払時期</th>
+              <td>初期費用：申込後、事業者指定口座への入金をもって契約成立。月額利用料：毎月1日に翌月分請求、請求日から30日以内に支払い</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="article-header">役務提供時期</div>
+        <div class="tokusho-table">
+          <table>
+            <tr>
+              <th>提供開始時期</th>
+              <td>初期費用入金確認後3〜5日以内に初期構築開始。完了後サービス開始（目安：3〜5日）</td>
+            </tr>
+            <tr>
+              <th>初期構築内容</th>
+              <td>LINE公式アカウント設定、Googleスプレッドシート構築、Google Apps Script設定、テスト配信、初期説明</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="article-header">契約期間</div>
+        <div class="tokusho-table">
+          <table>
+            <tr>
+              <th>初期契約期間</th>
+              <td>3ヶ月（契約成立日から3ヶ月間）</td>
+            </tr>
+            <tr>
+              <th>自動更新</th>
+              <td>契約期間満了の30日前までに解約申し出がない場合、同一条件で3ヶ月間自動更新</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="article-header">解約・キャンセル</div>
+        <div class="tokusho-table">
+          <table>
+            <tr>
+              <th>解約手続き</th>
+              <td>初期契約期間（3ヶ月）経過後、解約希望月の前月末日（30日前）までにAutoPI公式LINEへメッセージで申請</td>
+            </tr>
+            <tr>
+              <th>中途解約</th>
+              <td>初期契約期間中の中途解約は原則不可。ただし、事業者のサービス提供に重大な瑕疵がある場合を除く</td>
+            </tr>
+            <tr>
+              <th>違約金・解約金</th>
+              <td>なし（初期構築作業着手後は初期費用の返金不可）</td>
+            </tr>
+            <tr>
+              <th>月途中解約</th>
+              <td>月の途中で解約した場合の日割り精算は行いません。月額利用料は1ヶ月単位での請求です</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="article-header">クーリングオフ</div>
+        <p>本サービスは法人・個人事業主を対象とするBtoBサービスです。特定商取引法上のクーリングオフ制度（消費者保護規定）の適用はありません。</p>
+
+        <div class="article-header">動作環境</div>
+        <div class="tokusho-table">
+          <table>
+            <tr>
+              <th>必須環境</th>
+              <td>LINE公式アカウント、Googleアカウント、インターネット接続環境</td>
+            </tr>
+            <tr>
+              <th>対応ブラウザ</th>
+              <td>Chrome、Safari、Firefox、Edge（最新版推奨）</td>
+            </tr>
+            <tr>
+              <th>対応デバイス</th>
+              <td>スマートフォン、タブレット、PC</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="article-header">個人情報の取り扱い</div>
+        <p>本サービスを通じて取得・処理される個人情報（サロン顧客の氏名・LINE User ID・予約情報等）は、本サービス提供の目的のみに使用し、適切なセキュリティ措置を講じます。法令に基づく開示請求がある場合を除き、第三者への提供は行いません。</p>
+
+        <div class="article-header">免責事項</div>
+        <p>本サービスはLINEプラットフォーム、Google Apps Script、Googleスプレッドシートを利用して提供されます。これらのプラットフォームの仕様変更、障害、サービス停止により本サービスが利用不能となった場合、事業者は責任を負いません。また、以下の事由によるサービス停止・損失についても事業者は責任を負いません：LINEプラットフォームの変更、利用者によるスプレッドシート誤操作、利用者のLINE公式アカウント設定ミス、インターネット障害、不可抗力による障害等。</p>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">
+        <span style="color:#ffffff;">Auto</span><span style="color:#06C755;">Pi</span>
+      </div>
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="index.html">トップページ</a>
+          <a href="index.html#about">運営者情報</a>
+        </div>
+        <div class="footer-copyright">
+          © 2026 AutoPi（オートピ）/ 松尾侑樹. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('nav a').forEach(a => {
+        a.classList.remove('active');
+      });
+      document.querySelector('nav a[href="#' + tab + '"]').classList.add('active');
+      document.getElementById(tab).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('nav a').forEach(a => {
+            a.classList.remove('active');
+          });
+          document.querySelector('nav a[href="#' + entry.target.id + '"]').classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(document.getElementById('tos'));
+    observer.observe(document.getElementById('tokusho'));
+  </script>
+
+</body>
+</html>
