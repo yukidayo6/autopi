@@ -127,7 +127,11 @@
       width: 100%;
       height: 4px;
       background-color: rgba(0,0,0,0.06);
-      position: relative;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      z-index: 500;
       overflow: hidden;
     }
 
@@ -143,13 +147,16 @@
        Main Container
     ============================================================ */
     .quiz-container {
-      flex: 1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
-      position: relative;
+      padding: 68px 20px;
       overflow: hidden;
       background: linear-gradient(135deg, #d1fae5 0%, #FDF8F4 45%, #fef3c7 100%);
     }
@@ -169,6 +176,10 @@
     /* 診断完了ページ：ベタ塗り背景 */
     .quiz-container.results-active {
       background: var(--bg);
+      overflow-y: auto;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 68px;
     }
     .quiz-container.results-active::before {
       display: none;
@@ -1103,6 +1114,40 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 24px rgba(6,199,85,0.4);
     }
+    .btn-cta-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 420px;
+      margin-top: 18px;
+      padding: 11px 32px;
+      border-radius: 100px;
+      border: 2px solid var(--green);
+      background: var(--bg);
+      color: var(--green-deep);
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-cta-secondary:hover {
+      background: rgba(6,199,85,0.06);
+      transform: translateY(-2px);
+    }
+    .retry-link {
+      font-size: 13px;
+      color: var(--text-sub);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .retry-link:hover {
+      color: var(--text);
+    }
     .intro-badges {
       display: flex;
       align-items: center;
@@ -1130,39 +1175,34 @@
 
 
     /* ============================================================
-       Footer
-    ============================================================ */
-    .footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 12px;
-      color: var(--text-sub);
-      border-top: 1px solid var(--border);
-      background-color: var(--bg-section);
-    }
-
-    /* ============================================================
        Responsive
     ============================================================ */
     .sp-br { display: none; }
     @media (max-width: 768px) {
       .sp-br { display: block; }
-      .quiz-container { padding: 30px 16px; }
+      .quiz-container { padding: 68px 16px; }
       .steps-wrapper  { max-width: 100%; }
       .step           { max-width: 100%; }
 
       .question           { font-size: 22px; }
-      .question.intro-title { font-size: 26px; }
+      .question.intro-title { font-size: 23px; }
+      .question.intro-title .highlight-underline::after { height: 6px; }
 
       .result-cards { grid-template-columns: 1fr; }
       .results-title { font-size: 26px; }
 
-      .buttons-container { flex-direction: column-reverse; }
+      .buttons-container { flex-direction: row; }
+      .btn { padding: 14px 24px; }
+      .hero { padding: 32px 24px 16px; margin-bottom: 20px; }
+      .step[data-step="0"] .btn-primary::before { content: ''; width: 16px; flex-shrink: 0; }
+      .subtitle { font-size: 13px; }
+      .intro-badges { margin-top: 22px; }
     }
 
     @media (max-width: 480px) {
       .question             { font-size: 20px; }
-      .question.intro-title { font-size: 22px; }
+      .question.intro-title { font-size: 19px; }
+      .question.intro-title .highlight-underline::after { height: 5px; }
       .subtitle             { font-size: 13px; }
 
       input[type="number"],
@@ -1171,7 +1211,7 @@
         padding: 14px;
       }
 
-      .btn { padding: 14px 16px; font-size: 14px; }
+      .btn { padding: 12px 16px; font-size: 14px; }
     }
   </style>
 </head>
@@ -1183,7 +1223,7 @@
         <a href="index.html" class="header-logo">
           <img src="data:image/png;base64,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" alt="AutoPi" />
         </a>
-        <a href="index.html" class="header-cta-btn">AutoPiの詳細はこちら！</a>
+        <a href="index.html" class="header-cta-btn">AutoPiとは？</a>
       </div>
     </div>
   </header>
@@ -1197,7 +1237,7 @@
 
       <!-- Step 0: Intro -->
       <div class="step active" data-step="0">
-        <div class="question intro-title">あなたのサロン、<br>今月<span class="highlight-underline">いくら損</span>していますか？</div>
+        <div class="question intro-title">あなたのサロン、<br>毎月<span class="highlight-underline">いくら損</span>していますか？</div>
         <div class="subtitle">4つの質問に答えるだけで、<br>あなたの損失額を30秒で診断します。</div>
         <div class="buttons-container single">
           <button class="btn btn-primary" onclick="nextStep()">
@@ -1226,7 +1266,6 @@
           <button class="btn btn-ghost" onclick="goBack()">← 戻る</button>
           <button class="btn btn-primary" onclick="nextStep()" id="btn-step1" disabled>次へ →</button>
         </div>
-        <p class="keyboard-hint"><kbd>Enter</kbd> で次へ進む</p>
       </div>
 
       <!-- Step 2: Avg Price -->
@@ -1239,7 +1278,6 @@
           <button class="btn btn-ghost" onclick="goBack()">← 戻る</button>
           <button class="btn btn-primary" onclick="nextStep()" id="btn-step2" disabled>次へ →</button>
         </div>
-        <p class="keyboard-hint"><kbd>Enter</kbd> で次へ進む</p>
       </div>
 
       <!-- Step 3: Review Count -->
@@ -1252,7 +1290,6 @@
           <button class="btn btn-ghost" onclick="goBack()">← 戻る</button>
           <button class="btn btn-primary" onclick="nextStep()" id="btn-step3" disabled>次へ →</button>
         </div>
-        <p class="keyboard-hint"><kbd>Enter</kbd> で次へ進む</p>
       </div>
 
       <!-- Step 4: Optional Visit Count -->
@@ -1355,7 +1392,7 @@
         <div class="improve-card" style="margin-bottom: 36px;">
           <div class="improve-bar"></div>
           <div style="flex: 1; min-width: 0;">
-            <div class="improve-text">このキャンセル損失、<br class="sp-br"><span>仕組みで半減</span>できます。</div>
+            <div class="improve-text">このキャンセル損失、<br class="sp-br">AutoPiの<span>仕組みで半減</span>できます。</div>
             <div class="improve-sub">AutoPiの自動化システムが、毎月の損失を自動で回収します。</div>
           </div>
         </div>
@@ -1398,24 +1435,20 @@
         </div>
 
         <!-- CTA -->
-        <div class="cta-wrap" style="margin-bottom: 24px;">
+        <div class="cta-wrap" style="margin-bottom: 16px;">
           <div class="cta-sub-tag"><span class="tag-num">7</span>社限定・モニター募集中！</div>
           <a href="index.html" class="btn-cta">
-            AutoPiを詳しく見る
-            <span class="double-ring-arrow">
-              <span class="double-ring-outer"></span>
-              <span class="double-ring-inner">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                  <path d="M1 5h8M5.5 1.5L9 5l-3.5 3.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.02 2 11c0 2.85 1.42 5.4 3.66 7.12L5 22l4.15-2.07A10.7 10.7 0 0012 20c5.52 0 10-4.02 10-9S17.52 2 12 2z" fill="currentColor"/>
+            </svg>
+            まずはLINEで相談する
           </a>
+          <a href="index.html" class="btn-cta-secondary">AutoPiの詳細はこちら</a>
         </div>
 
         <!-- もう一度やる -->
         <div style="text-align:center; margin-bottom: 40px;">
-          <button class="btn btn-ghost" onclick="retryDiagnosis()" style="width:100%;max-width:420px;">もう一度診断する</button>
+          <a href="#" onclick="retryDiagnosis(); return false;" class="retry-link">もう一度診断する →</a>
         </div>
 
       </div>
@@ -1423,7 +1456,6 @@
     </div>
   </div>
 
-  <div class="footer">松尾侑樹 ｜ © 2026</div>
 
   <script>
     let currentStep = 0;
@@ -1663,6 +1695,19 @@
     });
 
     updateProgressBar();
+
+    // キーボード表示時にボタンが隠れないよう調整
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => {
+        const keyboardHeight = window.innerHeight - window.visualViewport.height;
+        const quizContainer = document.querySelector('.quiz-container');
+        if (keyboardHeight > 50) {
+          quizContainer.style.bottom = keyboardHeight + 'px';
+        } else {
+          quizContainer.style.bottom = '0';
+        }
+      });
+    }
   </script>
 </body>
 </html>
