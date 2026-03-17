@@ -24,11 +24,11 @@
       --border:       rgba(0,0,0,0.08);
       --white:        #ffffff;
       --danger:       #E53E3E;
-      --warning:      #D97706;
+      --warning:      #F5A623;
       --danger-bg:    #FFF5F5;
       --danger-border: rgba(197,48,48,0.18);
       --warning-bg:   #FFFBEB;
-      --warning-border: rgba(217,119,6,0.2);
+      --warning-border: rgba(245,166,35,0.2);
       --green-bg:     #F0FFF4;
       --green-border: rgba(6,199,85,0.2);
     }
@@ -898,7 +898,7 @@
       font-weight: 700;
       line-height: 1.7;
     }
-    .improve-text span { color: var(--green-deep); }
+    .improve-text span { color: #F5A623; }
     .improve-sub {
       font-size: 12px;
       color: var(--text-sub);
@@ -971,7 +971,7 @@
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.1em;
-      color: var(--warning);
+      color: var(--text);
       text-transform: uppercase;
       margin-bottom: 4px;
     }
@@ -1262,7 +1262,7 @@
       <div class="step" data-step="1">
         <span class="step-counter">STEP 1 / 4</span>
         <div class="question"><span class="num-highlight">1</span>ヶ月のキャンセル数</div>
-        <input type="number" id="input-cancel" min="0" placeholder="例：12" onkeypress="handleEnter(event)">
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="input-cancel" placeholder="例：12" onkeypress="handleEnter(event)">
         <div class="hint">目安の数字を入力</div>
         <div class="buttons-container">
           <button class="btn btn-ghost" onclick="goBack()">← 戻る</button>
@@ -1286,7 +1286,7 @@
       <div class="step" data-step="3">
         <span class="step-counter">STEP 3 / 4</span>
         <div class="question">Googleマップの口コミ数は？</div>
-        <input type="number" id="input-review" min="0" placeholder="例：25" onkeypress="handleEnter(event)">
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="input-review" placeholder="例：25" onkeypress="handleEnter(event)">
         <div class="hint">目安の数字</div>
         <div class="buttons-container">
           <button class="btn btn-ghost" onclick="goBack()">← 戻る</button>
@@ -1298,7 +1298,7 @@
       <div class="step" data-step="4">
         <span class="step-counter">STEP 4 / 4</span>
         <div class="question">月間の来店客数</div>
-        <input type="number" id="input-visit" min="0" placeholder="例：200" onkeypress="handleEnterSubmit(event)">
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="input-visit" placeholder="例：200" onkeypress="handleEnterSubmit(event)">
         <div class="hint">目安の数字を入力</div>
         <div class="buttons-container">
           <button class="btn btn-ghost" onclick="goBack()">← 戻る</button>
@@ -1430,7 +1430,7 @@
         <div class="roi-card" style="margin-bottom: 36px;">
           <div class="roi-left">
             <div class="roi-label">
-              月<strong>9,800<span style="font-size:12px;font-weight:700;">円</span></strong>の投資で、<br class="sp-br">月間<strong id="res-roi-loss">—</strong>の損失を半分に！
+              月<strong>9,800<span style="font-size:12px;font-weight:700;">円</span></strong>の投資で、<br class="sp-br">月間<strong id="res-roi-loss">—</strong>の<span style="color:var(--text);">損失を半分に！</span>
             </div>
           </div>
           <div class="roi-badge">先着7社限定</div>
@@ -1670,7 +1670,7 @@
       sw.style.display = 'none';
       document.getElementById('resultsContainer').classList.add('active');
       qc.classList.add('results-active');
-      qc.scrollTop = 0;
+      requestAnimationFrame(() => { qc.scrollTop = 0; });
 
       updateProgressBar();
     }
